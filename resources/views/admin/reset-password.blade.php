@@ -11,7 +11,7 @@
 <body>
 
     <div class="container">
-        <h1>Admin Login</h1>
+        <h1>Admin Reset Password</h1>
         @if(Session::has('error'))
             <p class="text-danger">{{Session::get('error')}}</p>
         @endif
@@ -19,15 +19,12 @@
             <p class="text-success">{{Session::get('success')}}</p>
         @endif
         
-        <form action="{{route('admin.login.submit')}}" method="POST">
+        <form action="{{route('admin.reset.password.submit')}}" method="POST">
             @csrf
-            <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="text" class="form-control"  name="email">
-                @error('email')
-                <p class="text-danger">{{$message}}</p>
-                @enderror
-            </div>
+            
+            <input type="hidden" value="{{$token}}" name="token">
+            <input type="hidden" value="{{$email}}" name="email">
+
             <div class="mb-3">
                 <label for="exampleInputPassword1" class="form-label">Password</label>
                 <input type="password" class="form-control" id="exampleInputPassword1" name="password">
@@ -35,10 +32,15 @@
                 <p class="text-danger">{{$message}}</p>
                 @enderror
             </div>
-            <div class="mb-3 form-check">
-                <a href="{{route('admin.forgot.password')}}">Forgot Password</a>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Confirm Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" name="confirm_password">
+                @error('confirm_password')
+                <p class="text-danger">{{$message}}</p>
+                @enderror
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+           
+            <button type="submit" class="btn btn-primary">Reset</button>
         </form>
     </div>
 

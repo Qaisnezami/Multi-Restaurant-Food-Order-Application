@@ -19,8 +19,14 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/admin/logout',[AdminController::class, 'admin_logout'])->name('admin.logout');
-Route::post('/admin/login', [AdminController::class, 'admin_login_submit'])->name('admin.login');
+Route::post('/admin/login', [AdminController::class, 'admin_login_submit'])->name('admin.login.submit');
 Route::get('/admin/login', [AdminController::class, 'admin_login'])->name('admin.login')->middleware('check-login');
+
+Route::get('/admin/forgot-password',[AdminController::class, 'admin_forgot_password'])->name('admin.forgot.password');
+Route::post('/admin/forgot-password',[AdminController::class, 'admin_forgot_password_submit'])->name('admin.forgot.password.submit');
+
+Route::get('/admin/reset-password/{token}/{email}',[AdminController::class, 'admin_reset_password'])->name('admin.reset.password');
+Route::post('/admin/reset-password',[AdminController::class, 'admin_reset_password_submit'])->name('admin.reset.password.submit');
 
 Route::middleware('admin')->group(function (){
     Route::get('/admin/dashboard',[AdminController::class, 'admin_dashboard'])->name('admin.dashboard');
